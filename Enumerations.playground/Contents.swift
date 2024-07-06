@@ -46,6 +46,45 @@ for beverage in Beverage.allCases {
     print(beverage)
 }
 
+/// Associated Value
+
+enum Shortcut {
+    case fileOrFolder(path: URL, name: String)
+    case wwwUrl(path: URL)
+    case song(artist: String, songName: String)
+}
+
+let wwwApple = Shortcut.wwwUrl(path: URL(string: "https://apple.com")!)
+
+/// how to check is wwwApple is in wwwUrl
+/// wrong
+//if wwwApple == Shortcut.wwwUrl(path: URL(string: "https://apple.com")!){
+//    "damn"
+//}
+/// correct
+if case let .wwwUrl(path) = wwwApple {
+    path
+}
+
+enum Vehicle {
+    case Car(manufacturer: String, model: String)
+    case Bike(manufacturer: String, yearMade: Int)
+    
+    func getManufacturer() -> String {
+        switch self {
+        case let .Car(manufacturer, _):
+            return "your type of car is \(manufacturer)"
+        case let .Bike(manufacturer, _):
+            return "your type of bike is \(manufacturer)"
+        }
+    }
+}
+
+let car = Vehicle.Car(manufacturer: "Tesla", model: "X")
+car.getManufacturer()
+let bike = Vehicle.Bike(manufacturer: "Harley Davidson", yearMade: 1987)
+bike.getManufacturer()
+
 /// Recursive Enumerations
 /// A recursive enumeration is an enumeration that has another instance of the enumeration as the associated value for one or more of the enumeration cases. You indicate that an enumeration case is recursive by writing indirect before it, which tells the compiler to insert the necessary layer of indirection.
 
@@ -73,4 +112,6 @@ func evaluate(_ expression: ArithmeticExpression) -> Int {
 
 print(evaluate(product))
 print((evaluate(sum)))
+
+
 
